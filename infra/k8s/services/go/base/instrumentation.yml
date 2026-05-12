@@ -16,3 +16,5 @@ spec:
     env:
       - name: OTEL_GO_AUTO_TARGET_EXE
         value: /app/server
+      - name: OTEL_EXPORTER_OTLP_PROTOCOL
+        value: grpc
