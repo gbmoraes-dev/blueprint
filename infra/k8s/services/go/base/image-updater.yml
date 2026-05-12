@@ -6,18 +6,20 @@ metadata:
   namespace: argocd
 
 spec:
+  namespace: argocd
+  writeBackConfig:
+    method: git
+    gitConfig:
+      repository: https://github.com/gbmoraes-dev/blueprint
+      branch: main
+      writeBackTarget: kustomization:infra/k8s/services/go/overlays/local
+      credentials: secret:argocd/git-credentials#password
   applicationRefs:
     - namePattern: go
-      namespace: argocd
-  images:
-    - image: ghcr.io/gbmoraes-dev/blueprint-go
-      updateStrategy:
-        type: Digest
-  git:
-    branch: main
-    writeBackMethod: git
-    repoURL: https://github.com/gbmoraes-dev/blueprint
-    credentials:
-      secret:
-        name: git-credentials
-        namespace: argocd
+      images:
+        - alias: go
+          imageName: ghcr.io/gbmoraes-dev/blueprint-go:latest
+          commonUpdateSettings:
+            updateStrategy: digest
+            forceUpdate: true
+          pullSecret: secret:argocd/ghcr-credentials#token
