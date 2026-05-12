@@ -2,7 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - rollout.yaml
-  - services.yaml
-  - ingress.yaml
-  - analysis-template.yaml
+  - rollout.yml
+  - services.yml
+  - ingress.yml
+  - analysis-template.yml
