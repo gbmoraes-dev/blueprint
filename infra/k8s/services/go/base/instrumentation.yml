@@ -7,7 +7,7 @@ metadata:
 
 spec:
   exporter:
-    endpoint: http://otel-otelcol.default:4317
+    endpoint: http://otel-collector.default.svc.cluster.local:4317
   propagators:
     - tracecontext
     - baggage
