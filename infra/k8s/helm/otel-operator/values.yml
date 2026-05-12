@@ -4,4 +4,4 @@ manager:
   autoInstrumentationImage:
     go:
       repository: ghcr.io/open-telemetry/opentelemetry-go-instrumentation/autoinstrumentation-go
-  featureGates: "+operator.autoinstrumentation.go"
+  featureGates: "+operator.golang.flags"
