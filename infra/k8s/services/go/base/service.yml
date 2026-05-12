@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: List
+
+items:
+  - apiVersion: v1
+    kind: Service
+
+    metadata:
+      name: go-stable
+
+    spec:
+      selector:
+        app: go
+      ports:
+        - port: 80
+          targetPort: 8080
+  - apiVersion: v1
+    kind: Service
+
+    metadata:
+      name: go-canary
+
+    spec:
+      selector:
+        app: go
+      ports:
+        - port: 80
+          targetPort: 8080

@@ -1,0 +1,6 @@
+manager:
+  collectorImage:
+    repository: otel/opentelemetry-collector-contrib
+  autoInstrumentationImage:
+    go:
+      repository: ghcr.io/open-telemetry/opentelemetry-go-instrumentation/autoinstrumentation-go

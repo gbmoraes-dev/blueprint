@@ -1,0 +1,48 @@
+apiVersion: opentelemetry.io/v1beta1
+kind: OpenTelemetryCollector
+
+metadata:
+  name: otel
+  namespace: monitoring
+
+spec:
+  mode: Deployment
+  config:
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+            endpoint: 0.0.0.0:4317
+          http:
+            endpoint: 0.0.0.0:4318
+
+    processors:
+      batch:
+        timeout: 5s
+      memory_limiter:
+        limit_mib: 128
+
+    exporters:
+      otlp/tempo:
+        endpoint: http://tempo.monitoring:4317
+        tls:
+          insecure: true
+      loki:
+        endpoint: http://loki.monitoring:3100/loki/api/v1/push
+      prometheus:
+        endpoint: 0.0.0.0:8889
+
+    service:
+      pipelines:
+        traces:
+          receivers: [otlp]
+          processors: [memory_limiter, batch]
+          exporters: [otlp/tempo]
+        logs:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [loki]
+        metrics:
+          receivers: [otlp]
+          processors: [batch]
+          exporters: [prometheus]

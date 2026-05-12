@@ -1,0 +1,13 @@
+tempo:
+  storage:
+    trace:
+      backend: local
+      local:
+        path: /var/tempo/traces
+  retention: 6h
+
+persistence:
+  enabled: false
+
+tempoQuery:
+  enabled: true

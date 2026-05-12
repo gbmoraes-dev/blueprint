@@ -1,0 +1,36 @@
+# Common
+contrib/
+.git/
+.gitignore
+.dockerignore
+docker-compose.yml
+Dockerfile
+Makefile
+
+# Temporary files
+*~
+*#
+.#*
+
+# Vendors
+vendor/
+
+# Binaries for programs and plugins
+dist/
+gin-bin
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, build with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# env files
+.env
+.env.test
+.env.example

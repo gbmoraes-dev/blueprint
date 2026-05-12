@@ -1,0 +1,39 @@
+grafana:
+  enabled: true
+  adminPassword: admin
+  persistence:
+    enabled: false
+  grafana.ini:
+    feature_toggles:
+      enable: traceqlEditor
+  additionalDataSources:
+    - name: Loki
+      type: loki
+      url: http://loki.monitoring:3100
+      access: proxy
+      isDefault: false
+    - name: Tempo
+      type: tempo
+      url: http://tempo.monitoring:3100
+      access: proxy
+      isDefault: false
+      jsonData:
+        tracesToLogsV2:
+          datasourceUid: loki
+        lokiSearch:
+          datasourceUid: loki
+
+prometheus:
+  prometheusSpec:
+    retention: 6h
+    storageSpec: {}
+    serviceMonitorSelectorNilUsesHelmValues: false
+
+alertmanager:
+  enabled: false
+
+kube-state-metrics:
+  enabled: true
+
+node-exporter:
+  enabled: true

@@ -1,0 +1,18 @@
+services:
+  go:
+    image: go
+    container_name: go
+    restart: unless-stopped
+    build:
+      context: apps/go
+    env_file:
+      - apps/go/.env
+    ports:
+      - "8080:8080"
+    networks:
+      - blueprint
+
+networks:
+  blueprint:
+    driver: bridge
+    name: blueprint_network

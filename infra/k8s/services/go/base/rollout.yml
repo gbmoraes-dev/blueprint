@@ -1,0 +1,61 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+
+metadata:
+  name: go
+
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: go
+  strategy:
+    canary:
+      canaryService: go-canary
+      stableService: go-stable
+      trafficRouting:
+        nginx:
+          stableIngress: go-ingress
+      analysis:
+        startingStep: 1
+        templates:
+          - templateName: go-success-rate
+      steps:
+        - setWeight: 25
+        - pause: { duration: 2m }
+        - setWeight: 50
+        - pause: { duration: 2m }
+        - setWeight: 75
+        - pause: { duration: 2m }
+        - setWeight: 100
+  template:
+    metadata:
+      labels:
+        app: go
+      annotations:
+        instrumentation.opentelemetry.io/inject-go: "true"
+    spec:
+      containers:
+        - name: go
+          image: ghcr.io/gbmoraes-dev/blueprint-go:latest
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 50m
+              memory: 32Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi
