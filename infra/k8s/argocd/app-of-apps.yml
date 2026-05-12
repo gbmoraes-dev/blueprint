@@ -6,22 +6,22 @@ metadata:
   namespace: argocd
 
 spec:
-  goTemplate: true
   generators:
     - git:
         repoURL: https://github.com/gbmoraes-dev/blueprint
         revision: main
         directories:
-          - path: infra/k8s/argocd/apps/*/*
+          - path: infra/k8s/argocd/apps/infra/*
+          - path: infra/k8s/argocd/apps/services/*
   template:
     metadata:
-      name: "{{.path.basename}}"
+      name: "{{path.basename}}"
     spec:
       project: default
       source:
         repoURL: https://github.com/gbmoraes-dev/blueprint
         targetRevision: main
-        path: "{{.path}}"
+        path: "{{path}}"
       destination:
         server: https://kubernetes.default.svc
         namespace: argocd
