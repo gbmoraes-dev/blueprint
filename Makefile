@@ -28,7 +28,7 @@ argocd-password:
 	@kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d && echo
 
 app-of-apps:
-	@kubectl apply -f infra/k8s/argocd/app-of-apps.yml
+	@kubectl apply --server-side -f infra/k8s/argocd/app-of-apps.yml
 
 cluster: cluster-up install-argocd setup-gh-token wait-argocd argocd-password app-of-apps
 
