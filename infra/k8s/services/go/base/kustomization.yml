@@ -6,5 +6,6 @@ resources:
   - service.yml
   - ingress.yml
   - analysis-template.yml
+  - image-updater.yml
   - go-otel-collector.yml
   - instrumentation.yml

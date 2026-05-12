@@ -1,0 +1,22 @@
+apiVersion: argocd-image-updater.argoproj.io/v1alpha1
+kind: ImageUpdater
+
+metadata:
+  name: go
+  namespace: argocd
+
+spec:
+  appName: go
+  appNamespace: argocd
+  images:
+    - image: ghcr.io/gbmoraes-dev/blueprint-go
+      updateStrategy:
+        type: Digest
+  git:
+    branch: main
+    writeBackMethod: git
+    repoURL: https://github.com/gbmoraes-dev/blueprint
+    credentials:
+      secret:
+        name: git-credentials
+        namespace: argocd
