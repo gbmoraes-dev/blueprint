@@ -6,8 +6,9 @@ metadata:
   namespace: argocd
 
 spec:
-  appName: go
-  appNamespace: argocd
+  applicationRefs:
+    - name: go
+      namespace: argocd
   images:
     - image: ghcr.io/gbmoraes-dev/blueprint-go
       updateStrategy:
