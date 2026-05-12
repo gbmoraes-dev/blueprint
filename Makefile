@@ -19,6 +19,13 @@ install-argocd:
 setup-gh-token:
 	@kubectl create secret generic ghcr-credentials --from-literal=token="$(GH_USERNAME):$(GH_TOKEN)" -n argocd --dry-run=client -o yaml | kubectl apply -f -
 	@kubectl create secret generic git-credentials --from-literal=password="$(GH_USERNAME):$(GH_TOKEN)" -n argocd --dry-run=client -o yaml | kubectl apply -f -
+	@kubectl create secret generic blueprint-repo-creds \
+			--from-literal=type=git \
+			--from-literal=url=https://github.com/gbmoraes-dev/blueprint \
+			--from-literal=username="$(GH_USERNAME)" \
+			--from-literal=password="$(GH_TOKEN)" \
+			-n argocd \
+			--dry-run=client -o yaml | kubectl label --local -f - argocd.argoproj.io/secret-type=repository -o yaml | kubectl apply -f -
 
 wait-argocd:
 	@echo "Aguardando ArgoCD ficar pronto..."

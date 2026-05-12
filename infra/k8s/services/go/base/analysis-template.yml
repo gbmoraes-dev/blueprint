@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: AnalysisTemplate
 
 metadata:
-  name: http-success-rate
+  name: go-success-rate
 
 spec:
   args:

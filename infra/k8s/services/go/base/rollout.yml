@@ -1,7 +1,9 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
+
 metadata:
   name: go
+
 spec:
   replicas: 4
   selector:
@@ -18,6 +20,9 @@ spec:
         startingStep: 1
         templates:
           - templateName: go-success-rate
+        args:
+          - name: service-name
+            value: go-canary
       steps:
         - setWeight: 25
         - pause: { duration: 2m }

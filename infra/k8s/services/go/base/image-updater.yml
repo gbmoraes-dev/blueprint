@@ -12,7 +12,7 @@ spec:
     gitConfig:
       repository: https://github.com/gbmoraes-dev/blueprint
       branch: main
-      writeBackTarget: kustomization:infra/k8s/services/go/overlays/local
+      writeBackTarget: kustomization:./infra/k8s/services/go/overlays/local
   applicationRefs:
     - namePattern: go
       images:
