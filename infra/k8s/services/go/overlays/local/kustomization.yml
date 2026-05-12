@@ -1,9 +1,8 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-
 resources:
   - ../../base
-
 images:
   - name: ghcr.io/gbmoraes-dev/blueprint-go
     newTag: latest
+    digest: sha256:6148e9c2c3b5cdba45b2033a94642fcf550698bcfaf74d1aaa61bb88f3fb481f
