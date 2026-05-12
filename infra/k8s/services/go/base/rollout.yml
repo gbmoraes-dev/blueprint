@@ -41,6 +41,9 @@ spec:
       containers:
         - name: go
           image: ghcr.io/gbmoraes-dev/blueprint-go:latest
+          env:
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://otel-collector.default.svc.cluster.local:4317"
           securityContext:
             runAsUser: 0
           ports:
