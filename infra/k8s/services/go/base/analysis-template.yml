@@ -1,12 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AnalysisTemplate
+
 metadata:
-  name: go-success-rate
+  name: http-success-rate
+
 spec:
+  args:
+    - name: service-name
   metrics:
     - name: success-rate
       interval: 30s
-      successCondition: result[0] >= 0.95
+      successCondition: result[0] >= 0.99
       failureLimit: 3
       provider:
         prometheus:
@@ -14,12 +18,13 @@ spec:
           query: |
             sum(rate(
               nginx_ingress_controller_requests{
-                service="go-stable",
+                service="{{args.service-name}}",
                 status!~"5.."
               }[2m]
-            )) /
+            ))
+            /
             sum(rate(
               nginx_ingress_controller_requests{
-                service="go-stable"
+                service="{{args.service-name}}"
               }[2m]
             ))
