@@ -13,7 +13,6 @@ spec:
       repository: https://github.com/gbmoraes-dev/blueprint
       branch: main
       writeBackTarget: kustomization:infra/k8s/services/go/overlays/local
-      credentials: secret:argocd/git-credentials#password
   applicationRefs:
     - namePattern: go
       images:
