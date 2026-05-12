@@ -4,6 +4,6 @@ manager:
   autoInstrumentationImage:
     go:
       repository: ghcr.io/open-telemetry/opentelemetry-go-instrumentation/autoinstrumentation-go
-  env:
+  extraEnvs:
     - name: ENABLE_GO_AUTO_INSTRUMENTATION
       value: "true"
