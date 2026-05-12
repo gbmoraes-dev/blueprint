@@ -17,8 +17,8 @@ install-argocd:
 	@kubectl apply -n argocd --server-side -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
 setup-gh-token:
-	@kubectl create secret generic ghcr-credentials --from-literal=auth="$(GH_USERNAME):$(GH_TOKEN)" -n argocd --dry-run=client -o yaml | kubectl apply -f -
-	@kubectl create secret generic git-credentials --from-literal=auth="$(GH_USERNAME):$(GH_TOKEN)" -n argocd --dry-run=client -o yaml | kubectl apply -f -
+	@kubectl create secret generic ghcr-credentials --from-literal=token="$(GH_USERNAME):$(GH_TOKEN)" -n argocd --dry-run=client -o yaml | kubectl apply -f -
+	@kubectl create secret generic git-credentials --from-literal=password="$(GH_USERNAME):$(GH_TOKEN)" -n argocd --dry-run=client -o yaml | kubectl apply -f -
 
 wait-argocd:
 	@echo "Aguardando ArgoCD ficar pronto..."
