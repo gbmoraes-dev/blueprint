@@ -22,4 +22,4 @@ spec:
           commonUpdateSettings:
             updateStrategy: digest
             forceUpdate: true
-          pullSecret: secret:argocd/ghcr-credentials#token
+            pullSecret: secret:argocd/ghcr-credentials#password

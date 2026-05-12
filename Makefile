@@ -17,7 +17,7 @@ install-argocd:
 	@kubectl apply -n argocd --server-side -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
 setup-gh-token:
-	@kubectl create secret generic ghcr-credentials --from-literal=token=$(GH_TOKEN) -n argocd
+	@kubectl create secret generic ghcr-credentials --from-literal=username=$(GH_USERNAME) --from-literal=password=$(GH_TOKEN) -n argocd
 	@kubectl create secret generic git-credentials --from-literal=username=$(GH_USERNAME) --from-literal=password=$(GH_TOKEN) -n argocd
 
 wait-argocd:
