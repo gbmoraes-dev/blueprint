@@ -1,20 +1,30 @@
 apiVersion: argoproj.io/v1alpha1
-kind: Application
+kind: ApplicationSet
 
 metadata:
   name: app-of-apps
   namespace: argocd
 
 spec:
-  project: default
-  source:
-    repoURL: https://github.com/gbmoraes-dev/blueprint
-    targetRevision: main
-    path: infra/k8s/argocd/apps
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: argocd
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+  generators:
+    - git:
+        repoURL: https://github.com/gbmoraes-dev/blueprint
+        revision: main
+        files:
+          - path: infra/k8s/argocd/apps/**/*.yml
+  template:
+    metadata:
+      name: "{{path.basename}}"
+    spec:
+      project: default
+      source:
+        repoURL: "{{repoURL}}"
+        targetRevision: "{{revision}}"
+        path: "{{path}}"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: argocd
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
