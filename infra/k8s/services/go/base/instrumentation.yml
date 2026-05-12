@@ -1,0 +1,18 @@
+apiVersion: opentelemetry.io/v1alpha1
+kind: Instrumentation
+
+metadata:
+  name: go-instrumentation
+  namespace: default
+
+spec:
+  exporter:
+    endpoint: http://otel-otelcol.default:4317
+  propagators:
+    - tracecontext
+    - baggage
+  go:
+    image: ghcr.io/open-telemetry/opentelemetry-go-instrumentation/autoinstrumentation-go:latest
+    env:
+      - name: OTEL_GO_AUTO_TARGET_EXE
+        value: /app/server
