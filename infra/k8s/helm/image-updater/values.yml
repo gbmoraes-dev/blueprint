@@ -1,4 +1,5 @@
 config:
+  logLevel: debug
   registries:
     - name: GitHub Container Registry
       prefix: ghcr.io
@@ -7,10 +8,15 @@ config:
       defaultns: library
       insecure: false
 
-authScripts:
-  enabled: false
+gitCommit:
+  email: image-updater@github.com
+  username: gbmoraes-dev
 
 metrics:
   enabled: true
   serviceMonitor:
     enabled: true
+
+extraEnv:
+  - name: METRICS_SECURE
+    value: "false"
