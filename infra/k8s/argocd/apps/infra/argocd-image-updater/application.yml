@@ -12,7 +12,7 @@ spec:
   sources:
     - repoURL: https://argoproj.github.io/argo-helm
       chart: argocd-image-updater
-      targetRevision: "0.x"
+      targetRevision: "1.x"
       helm:
         valueFiles:
           - $values/infra/k8s/helm/image-updater/values.yml
