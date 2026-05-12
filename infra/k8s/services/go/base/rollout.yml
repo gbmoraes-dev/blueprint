@@ -1,9 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Rollout
-
 metadata:
   name: go
-
 spec:
   replicas: 4
   selector:
@@ -35,9 +33,12 @@ spec:
       annotations:
         instrumentation.opentelemetry.io/inject-go: "true"
     spec:
+      shareProcessNamespace: true
       containers:
         - name: go
           image: ghcr.io/gbmoraes-dev/blueprint-go:latest
+          securityContext:
+            runAsUser: 0
           ports:
             - containerPort: 8080
           readinessProbe:
