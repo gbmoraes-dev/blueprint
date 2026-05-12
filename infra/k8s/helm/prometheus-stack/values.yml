@@ -37,3 +37,6 @@ kube-state-metrics:
 
 node-exporter:
   enabled: true
+
+crds:
+  enabled: true
