@@ -33,7 +33,6 @@ spec:
       annotations:
         instrumentation.opentelemetry.io/inject-go: "true"
     spec:
-      shareProcessNamespace: true
       containers:
         - name: go
           image: ghcr.io/gbmoraes-dev/blueprint-go:latest

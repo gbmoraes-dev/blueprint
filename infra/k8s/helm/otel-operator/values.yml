@@ -4,4 +4,6 @@ manager:
   autoInstrumentationImage:
     go:
       repository: ghcr.io/open-telemetry/opentelemetry-go-instrumentation/autoinstrumentation-go
-  featureGates: "+operator.golang.flags"
+  env:
+    - name: ENABLE_GO_AUTO_INSTRUMENTATION
+      value: "true"
