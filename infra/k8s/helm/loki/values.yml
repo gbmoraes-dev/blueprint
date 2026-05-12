@@ -15,11 +15,22 @@ loki:
         index:
           prefix: index_
           period: 24h
+  rulerConfig:
+    storage:
+      type: local
+      local:
+        directory: /tmp/loki/rules
 
 singleBinary:
   replicas: 1
   persistence:
     enabled: false
+  extraVolumes:
+    - name: loki-storage
+      emptyDir: {}
+  extraVolumeMounts:
+    - name: loki-storage
+      mountPath: /var/loki
 
 read:
   replicas: 0
